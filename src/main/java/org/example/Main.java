@@ -1,5 +1,7 @@
 package org.example;
 
+import static org.example.CustomerTier.REGULAR;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -12,6 +14,13 @@ public class Main {
             //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
             // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
             System.out.println("i = " + i);
+
+            // Main code Logic
+            Customer customer1 =  new Customer("01" ,12, REGULAR,100,true);
+            Order bob = new Order("01",customer1,"REGIONAL");
+
+
+
         }
     }
 }
