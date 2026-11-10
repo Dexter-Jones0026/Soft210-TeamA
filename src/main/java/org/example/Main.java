@@ -2,25 +2,48 @@ package org.example;
 
 import static org.example.CustomerTier.REGULAR;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        DiscountService discountService = new DiscountService();  // creates the service needed
+        ShippingService shippingService = new ShippingService();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-
-            // Main code Logic
-            Customer customer1 =  new Customer("01" ,12, REGULAR,100,true);
-            Order bob = new Order("01",customer1,"REGIONAL");
+        OrderProcessor orderProcessor = new OrderProcessor(discountService, shippingService);
 
 
+        Customer customer1 = new Customer("01", 12, REGULAR, 100, true);
 
+        // items
+        Item shirt = new Item("Shirt", "CLOTHING", 12.50, true);
+        Item phone = new Item("Phone", "ELECTRONICS", 250.00, false);
+        Item eggs = new Item("Eggs", "GROCERY", 3.50, false);
+
+
+        Order order1 = new Order("01", customer1, "REGIONAL");
+
+        order1.addItem(shirt, 1);
+        order1.addItem(phone, 1);
+
+        double total;
+        try {
+            total = orderProcessor.processOrder(order1);
+        } catch (OrderProcessingException e) {
+            throw new RuntimeException(e);
         }
+
+
+        System.out.println("Price: $" + total);
+        System.out.println("Loyalty points: " + customer1.getLoyaltyPoints());
+        System.out.println();
+//        System.out.println("your Items ordered are " + order1.getItems());
+        System.out.println("Items Ordered:");
+
+        for (var entry : order1.getItems().entrySet()) {
+            System.out.println(entry.getKey() +
+                    ", Quantity: " + entry.getValue());
+        }
+
+        System.out.println("OrderID: " + order1.getOrderId());
+        System.out.println( "Order Processed: " + order1.isProcessed());
     }
 }

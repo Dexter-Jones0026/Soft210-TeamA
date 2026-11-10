@@ -20,4 +20,12 @@ public class Item {
     public String getCategory() { return category; }
     public double getUnitPrice() { return unitPrice; }
     public boolean isClearance() { return clearance; }
+
+    @Override
+    public String toString() {
+        return "Item: " + sku + ", " +
+                "Category: " + category + ", " +
+                "Price: " + unitPrice + ", " +
+                "clearance=" + clearance;
+    }
 }
