@@ -5,10 +5,12 @@ import java.util.Map;
 public class OrderProcessor {
     private final DiscountService discountService;
     private final ShippingService shippingService;
+    private static double tax;
 
     public OrderProcessor(DiscountService discountService, ShippingService shippingService) {
         this.discountService = discountService;
         this.shippingService = shippingService;
+
     }
 
     /**
@@ -16,6 +18,7 @@ public class OrderProcessor {
      * Make this an issue.
      */
     public double processOrder(Order order) throws OrderProcessingException {
+
         if (order.isProcessed()) {
             throw new OrderProcessingException("Order has already been processed");
         }
@@ -49,7 +52,7 @@ public class OrderProcessor {
             }
         }
 
-        double tax = taxableAmount * 0.08; // 8% sales tax
+         tax = taxableAmount * 0.08; // 8% sales tax
 
         // Step 5: Calculate final total (def: finalTotal)
         double finalTotal = discountedSubtotal + shippingCost + tax;
@@ -61,5 +64,8 @@ public class OrderProcessor {
 
         order.setProcessed(true);
         return finalTotal;
+    }
+    public static double getTax(){
+        return tax;
     }
 }

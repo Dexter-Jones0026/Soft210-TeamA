@@ -26,6 +26,6 @@ public class Item {
         return "Item: " + sku + ", " +
                 "Category: " + category + ", " +
                 "Price: " + unitPrice + ", " +
-                "clearance=" + clearance;
+                "clearance: " + clearance;
     }
 }
